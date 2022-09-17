@@ -28,14 +28,16 @@ type NumberSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 
-	// Foo is an example field of Number. Edit number_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+	Value int64 `json:"value,omitempty"`
 }
 
 // NumberStatus defines the observed state of Number
 type NumberStatus struct {
 	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
+
+	FizzBuzz string `json:"fizz_buzz,omitempty"`
+	IsSquere bool   `json:"is_squere,omitempty"`
 }
 
 //+kubebuilder:object:root=true
