@@ -18,6 +18,10 @@ package controllers
 
 import (
 	"context"
+	"fmt"
+	"math"
+
+	"github.com/pkg/errors"
 
 	"k8s.io/apimachinery/pkg/runtime"
 	ctrl "sigs.k8s.io/controller-runtime"
@@ -25,6 +29,7 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/log"
 
 	mathv1beta1 "github.com/ymktmk/math-controller/api/v1beta1"
+	apierrors "k8s.io/apimachinery/pkg/api/errors"
 )
 
 // NumberReconciler reconciles a Number object
@@ -49,9 +54,44 @@ type NumberReconciler struct {
 func (r *NumberReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
 	_ = log.FromContext(ctx)
 
-	// TODO(user): your logic here
+	obj := mathv1beta1.Number{}
+	// namespaceのNumberリソースを探す
+	if err := r.Client.Get(ctx, req.NamespacedName, &obj); err != nil {
+		if apierrors.IsNotFound(err) {
+			return ctrl.Result{}, nil
+		}
+		return ctrl.Result{}, errors.WithStack(err)
+	}
+
+	{
+		// manifestのvalueを受け取ってFizzbuzzする
+		obj.Status.FizzBuzz = fizzbuzz(obj.Spec.Value)
+		obj.Status.IsSquere = isSquere(obj.Spec.Value)
+		fmt.Println("New Status", "status", obj.Status)
+		if err := r.Status().Update(ctx, &obj); err != nil {
+			return ctrl.Result{}, errors.WithStack(err)
+		}
+	}
 
 	return ctrl.Result{}, nil
+}
+
+func fizzbuzz(n int64) string {
+	if n%15 == 0 {
+		return "FizzBuzz"
+	}
+	if n%3 == 0 {
+		return "Fizz"
+	}
+	if n%5 == 0 {
+		return "Buzz"
+	}
+	return fmt.Sprintf("%d", n)
+}
+
+func isSquere(num int64) bool {
+	sqrt := int64(math.Floor(math.Sqrt(float64(num))))
+	return sqrt*sqrt == num
 }
 
 // SetupWithManager sets up the controller with the Manager.
