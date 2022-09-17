@@ -1,0 +1,6 @@
+apiVersion: math.ymktmk.github.io/v1beta1
+kind: Number
+metadata:
+  name: number-sample
+spec:
+  # TODO(user): Add fields here
