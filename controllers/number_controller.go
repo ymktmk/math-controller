@@ -66,7 +66,7 @@ func (r *NumberReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctr
 	{
 		// manifestのvalueを受け取ってFizzbuzzする
 		obj.Status.FizzBuzz = fizzbuzz(obj.Spec.Value)
-		obj.Status.IsSquere = isSquere(obj.Spec.Value)
+		obj.Status.IsSquare = isSquare(obj.Spec.Value)
 		fmt.Println("New Status", "status", obj.Status)
 		if err := r.Status().Update(ctx, &obj); err != nil {
 			return ctrl.Result{}, errors.WithStack(err)
@@ -89,7 +89,7 @@ func fizzbuzz(n int64) string {
 	return fmt.Sprintf("%d", n)
 }
 
-func isSquere(num int64) bool {
+func isSquare(num int64) bool {
 	sqrt := int64(math.Floor(math.Sqrt(float64(num))))
 	return sqrt*sqrt == num
 }

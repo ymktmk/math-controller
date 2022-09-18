@@ -37,7 +37,7 @@ type NumberStatus struct {
 	// Important: Run "make" to regenerate code after modifying this file
 
 	FizzBuzz string `json:"fizz_buzz,omitempty"`
-	IsSquere bool   `json:"is_squere,omitempty"`
+	IsSquare bool   `json:"is_square,omitempty"`
 }
 
 //+kubebuilder:object:root=true

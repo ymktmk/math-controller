@@ -44,7 +44,7 @@ spec:
             properties:
               fizz_buzz:
                 type: string
-              is_squere:
+              is_square:
                 type: boolean
             type: object
         type: object
