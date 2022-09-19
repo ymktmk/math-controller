@@ -3,4 +3,4 @@ kind: Number
 metadata:
   name: number-sample
 spec:
-  value: 10
+  value: 225
