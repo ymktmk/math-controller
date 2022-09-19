@@ -7,6 +7,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
+  USERNAME: ${{ github.actor }}
   REPOSITORY: ${{ github.repository }}
 
 jobs:
@@ -44,7 +45,8 @@ jobs:
           context: .
           push: true
           tags: |
-            $REGISTRY/$REPOSITORY:$VERSION
+            $REGISTRY/$USERNAME/$REPOSITORY:latest
+            $REGISTRY/$USERNAME/$REPOSITORY:$VERSION
         env:
           VERSION: ${{ steps.get_version.outputs.VERSION }}
 
