@@ -44,7 +44,6 @@ jobs:
           context: .
           push: true
           tags: |
-            $REGISTRY/$REPOSITORY:latest
             $REGISTRY/$REPOSITORY:$VERSION
         env:
           VERSION: ${{ steps.get_version.outputs.VERSION }}
