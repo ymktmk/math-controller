@@ -21,3 +21,17 @@ spec:
   value: 10
 ```
 
+## Reference
+
+* https://www.takutakahashi.dev/lazy-custom-controller-for-kubernetes/
+
+* https://www.wantedly.com/companies/wantedly/post_articles/339271
+
+* https://zoetrope.github.io/kubebuilder-training/introduction/basics.html
+
+* https://cadc.cyberagent.co.jp/2022/program/kubernetes-controller-improvements/
+
+* https://developers.cyberagent.co.jp/blog/archives/36200/
+
+* https://atmarkit.itmedia.co.jp/ait/articles/2109/10/news013.html
+
