@@ -15,7 +15,17 @@ spec:
     singular: number
   scope: Namespaced
   versions:
-  - name: v1beta1
+  - additionalPrinterColumns:
+    - jsonPath: .spec.value
+      name: Value
+      type: integer
+    - jsonPath: .status.fizz_buzz
+      name: FizzBuzz
+      type: string
+    - jsonPath: .status.is_square
+      name: Square
+      type: boolean
+    name: v1beta1
     schema:
       openAPIV3Schema:
         description: Number is the Schema for the numbers API
