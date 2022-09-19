@@ -42,6 +42,9 @@ type NumberStatus struct {
 
 //+kubebuilder:object:root=true
 //+kubebuilder:subresource:status
+//+kubebuilder:printcolumn:name="Value",type=integer,JSONPath=`.spec.value`
+//+kubebuilder:printcolumn:name="FizzBuzz",type=string,JSONPath=`.status.fizz_buzz`
+//+kubebuilder:printcolumn:name="Square",type=boolean,JSONPath=`.status.is_square`
 
 // Number is the Schema for the numbers API
 type Number struct {
