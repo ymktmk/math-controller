@@ -44,8 +44,8 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/$REPOSITORY:latest
-            ghcr.io/$REPOSITORY:$VERSION
+            ghcr.io/${{ env.REPOSITORY }}:latest
+            ghcr.io/${{ env.REPOSITORY }}:$VERSION
         env:
           VERSION: ${{ steps.get_version.outputs.VERSION }}
 
