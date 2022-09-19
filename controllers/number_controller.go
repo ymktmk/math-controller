@@ -32,7 +32,6 @@ import (
 	apierrors "k8s.io/apimachinery/pkg/api/errors"
 )
 
-// NumberReconciler reconciles a Number object
 type NumberReconciler struct {
 	client.Client
 	Scheme *runtime.Scheme
@@ -42,17 +41,8 @@ type NumberReconciler struct {
 //+kubebuilder:rbac:groups=math.ymktmk.github.io,resources=numbers/status,verbs=get;update;patch
 //+kubebuilder:rbac:groups=math.ymktmk.github.io,resources=numbers/finalizers,verbs=update
 
-// Reconcile is part of the main kubernetes reconciliation loop which aims to
-// move the current state of the cluster closer to the desired state.
-// TODO(user): Modify the Reconcile function to compare the state specified by
-// the Number object against the actual cluster state, and then
-// perform operations to make the cluster state reflect the state specified by
-// the user.
-//
-// For more details, check Reconcile and its Result here:
-// - https://pkg.go.dev/sigs.k8s.io/controller-runtime@v0.12.1/pkg/reconcile
 func (r *NumberReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
-	_ = log.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
 	obj := mathv1beta1.Number{}
 	// namespaceのNumberリソースを探す
@@ -67,7 +57,7 @@ func (r *NumberReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctr
 		// manifestのvalueを受け取ってFizzbuzzする
 		obj.Status.FizzBuzz = fizzbuzz(obj.Spec.Value)
 		obj.Status.IsSquare = isSquare(obj.Spec.Value)
-		fmt.Println("New Status", "status", obj.Status)
+		logger.Info("New Status", "status", obj.Status)
 		if err := r.Status().Update(ctx, &obj); err != nil {
 			return ctrl.Result{}, errors.WithStack(err)
 		}
@@ -94,7 +84,6 @@ func isSquare(num int64) bool {
 	return sqrt*sqrt == num
 }
 
-// SetupWithManager sets up the controller with the Manager.
 func (r *NumberReconciler) SetupWithManager(mgr ctrl.Manager) error {
 	return ctrl.NewControllerManagedBy(mgr).
 		For(&mathv1beta1.Number{}).
