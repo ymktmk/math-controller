@@ -1,23 +1,23 @@
 # math-controller
 
-CRDをKubernetesに適用する
+If you assign a number to the value of the 「Number」 resource, math-controller solves 「Fizzbuzz」 problems
+
+## Installation
+Install base components Use kubectl
+
 ```
-kustomize build config/crd | kubectl apply -f -
+kubectl apply -f https://github.com/ymktmk/math-controller/releases/download/v1.0.9/math-controller.yaml
 ```
 
-Cluster Role Bind
-```
-kustomize build config/default | kubectl apply -f -
-```
+## Usage
+Deploy Kind: Number
 
-Numberを
+```yaml:
+apiVersion: math.ymktmk.github.io/v1beta1
+kind: Number
+metadata:
+  name: number-sample
+spec:
+  value: 10
 ```
-kubectl apply -f config/samples
-```
-
-Controllerをデプロイする
-```
-go build -o bin/manager main.go
-```
-
 
