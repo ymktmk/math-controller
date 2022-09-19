@@ -7,7 +7,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
+  REPOSITORY: ${{ github.repository }}
 
 jobs:
   release:
@@ -36,8 +36,7 @@ jobs:
         env:
           VERSION: ${{ steps.get_version.outputs.VERSION }}
         run: |
-          IMAGE_ID=$REGISTRY/$IMAGE_NAME
-          make manifests-release IMG=$IMAGE_ID:$VERSION
+          make manifests-release IMG=$REGISTRY/$REPOSITORY:$VERSION
       
       - name: Publish images to the registry
         uses: docker/build-push-action@v3
@@ -45,8 +44,8 @@ jobs:
           context: .
           push: true
           tags: |
-            $REGISTRY/$IMAGE_NAME:latest
-            $REGISTRY/$IMAGE_NAME:$VERSION
+            $REGISTRY/$REPOSITORY:latest
+            $REGISTRY/$REPOSITORY:$VERSION
         env:
           VERSION: ${{ steps.get_version.outputs.VERSION }}
 
