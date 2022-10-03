@@ -45,7 +45,7 @@ func (r *NumberReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctr
 	logger := log.FromContext(ctx)
 
 	obj := mathv1beta1.Number{}
-	// namespaceのNumberリソースを探す
+	// 同期されたキャッシュから namespaceのNumberリソースを探す
 	if err := r.Client.Get(ctx, req.NamespacedName, &obj); err != nil {
 		if apierrors.IsNotFound(err) {
 			return ctrl.Result{}, nil
@@ -84,6 +84,7 @@ func isSquare(num int64) bool {
 	return sqrt*sqrt == num
 }
 
+// 最初は監視対象をセットするだけ
 func (r *NumberReconciler) SetupWithManager(mgr ctrl.Manager) error {
 	return ctrl.NewControllerManagedBy(mgr).
 		For(&mathv1beta1.Number{}).
