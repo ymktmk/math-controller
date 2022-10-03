@@ -53,6 +53,5 @@ CyberAgent Kubernetes基盤における運用フローのController化と継続�
 k8sのカスタムリソースで、CronJobの終了を検知してJobを実行する
 * https://www.m3tech.blog/entry/k8s-eventjob
 
-
 Kubernetes Casual Talk 〜Ubie、CA、メルペイのカスタムコントローラー〜
 * https://www.youtube.com/watch?v=R2B0cWpIZ5k
